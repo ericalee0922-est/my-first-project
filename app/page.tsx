@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetLang, setTargetLang] = useState("Spanish");
+  const [promptContext, setPromptContext] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [statusText, setStatusText] = useState("Processing...");
@@ -115,6 +116,23 @@ export default function Home() {
                   <option key={lang} value={lang}>{lang}</option>
                 ))}
               </select>
+            </div>
+
+            <div className="settings-section" style={{ marginTop: '0.5rem' }}>
+              <label htmlFor="prompt-context" style={{ marginBottom: '0.5rem', display: 'block' }}>Custom Translation Instructions (Optional)</label>
+              <textarea
+                id="prompt-context"
+                value={promptContext}
+                onChange={(e) => setPromptContext(e.target.value)}
+                placeholder="e.g. Use an energetic, enthusiastic tone appropriate for a vlog..."
+                disabled={isTranslating}
+                style={{
+                  width: '100%', padding: '1rem', borderRadius: '12px',
+                  background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(0,0,0,0.1)',
+                  outline: 'none', resize: 'vertical', minHeight: '80px',
+                  fontFamily: 'Inter, sans-serif'
+                }}
+              />
             </div>
 
             {!isTranslating && (
